@@ -1,0 +1,9 @@
+Options:
+      --color <when>        json colored output.
+  -s, --select <selector>   pick out json value by <selector>.
+  -p, --pretty              pretty output.
+  -r, --raw-output          raw string output without JSON double-quote.
+
+  -H, --help        display this help and exit
+  -V, --version     display version information and exit
+  -X <x-options>    x options. try -X help

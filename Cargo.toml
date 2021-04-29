@@ -1,0 +1,63 @@
+[package]
+name = "aki-json-pick"
+version = "0.1.0"
+authors = ["aki <aki.akaguma@hotmail.com>"]
+description = """
+The json pick out command.
+"""
+keywords = ["text", "filter", "json"]
+categories = ["command-line-utilities", "text-processing"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+build = "build.rs"
+edition = "2018"
+repository = "https://github.com/aki-akaguma/aki-json-pick"
+
+[lib]
+name = "libaki_json_pick"
+path = "src/lib.rs"
+crate-type = ["lib"]
+
+[[bin]]
+name = "aki-json-pick"
+path = "src/main.rs"
+
+[features]
+default = []
+
+[dependencies]
+anyhow = "1.0"
+atty = "0.2"
+colored_json = "2.1"
+flood-tide = { version="0.2", default-features=true, features=["stop_at_mm"] }
+jql = "2.9"
+runnel = "0.3"
+serde_json = "1.0"
+
+[dev-dependencies]
+indoc = "1.0"
+
+[build-dependencies]
+rust-version-info-file = "0.1"
+rustc_version = "0.3"
+
+[workspace]
+members = [
+    "xtask",
+]
+
+[package.metadata.deb]
+features = []
+section = "AAA-text"
+priority = "optional"
+maintainer = "aki <aki.akaguma@hotmail.com>"
+extended-description = """\
+The json pick out command.
+"""
+depends = "$auto"
+separate-debug-symbols = true
+assets = [
+    ["target/release/aki-json-pick", "usr/bin/aki-json-pick", "755"],
+    ["target/rust-version-info.txt", "usr/share/doc/aki-json-pick/", "644"],
+    ["README.md", "usr/share/doc/aki-json-pick/", "644"],
+]
