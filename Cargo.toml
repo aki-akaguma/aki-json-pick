@@ -1,6 +1,6 @@
 [package]
 name = "aki-json-pick"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["aki <aki.akaguma@hotmail.com>"]
 description = """
 The json pick out command.
@@ -24,6 +24,7 @@ path = "src/main.rs"
 
 [features]
 default = []
+debian_build = []
 
 [dependencies]
 anyhow = "1.0"
@@ -47,7 +48,7 @@ members = [
 ]
 
 [package.metadata.deb]
-features = []
+features = ["debian_build"]
 section = "AAA-text"
 priority = "optional"
 maintainer = "aki <aki.akaguma@hotmail.com>"
