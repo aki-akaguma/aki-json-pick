@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate indoc;
 
-const TARGET_EXE_PATH: &'static str = "target/debug/aki-json-pick";
+const TARGET_EXE_PATH: &'static str = env!("CARGO_BIN_EXE_aki-json-pick");
 
 macro_rules! help_msg {
     () => {

@@ -2,6 +2,13 @@ aki-json-pick TBD
 ===
 Unreleased changes. Release notes have not yet been written.
 
+0.1.2 (2021-06-24)
+=====
+
+* add `memx_cdy::memx_init(); // fast mem operation.`
+* rewite TARGET_EXE_PATH with `env!("CARGO_BIN_EXE_aki-json-pick")`
+* bug fix: `#[cfg(feature = "debian_build")]`
+
 0.1.1 (2021-06-03)
 =====
 
