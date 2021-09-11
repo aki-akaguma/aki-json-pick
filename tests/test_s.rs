@@ -1,12 +1,9 @@
-#[macro_use]
-extern crate indoc;
-
 macro_rules! help_msg {
     () => {
         concat!(
             version_msg!(),
             "\n",
-            indoc!(r#"
+            indoc::indoc!(r#"
             Usage:
               aki-json-pick [options]
 

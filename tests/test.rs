@@ -1,14 +1,11 @@
-#[macro_use]
-extern crate indoc;
-
-const TARGET_EXE_PATH: &'static str = env!("CARGO_BIN_EXE_aki-json-pick");
+const TARGET_EXE_PATH: &'static str = env!(concat!("CARGO_BIN_EXE_", env!("CARGO_PKG_NAME")));
 
 macro_rules! help_msg {
     () => {
         concat!(
             version_msg!(),
             "\n",
-            indoc!(r#"
+            indoc::indoc!(r#"
             Usage:
               aki-json-pick [options]
 
@@ -55,10 +52,8 @@ macro_rules! version_msg {
     };
 }
 
-mod helper;
-
 mod test_0 {
-    use crate::helper::exec_target;
+    use exec_target::exec_target;
     const TARGET_EXE_PATH: &'static str = super::TARGET_EXE_PATH;
     //
     #[test]
@@ -120,7 +115,7 @@ const IN_DAT_10: &str = include_str!("../fixtures/10.json");
 const IN_DAT_11: &str = include_str!("../fixtures/11.json");
 
 mod test_1 {
-    use crate::helper::exec_target_with_in;
+    use exec_target::exec_target_with_in;
     const TARGET_EXE_PATH: &'static str = super::TARGET_EXE_PATH;
     //
     #[test]
