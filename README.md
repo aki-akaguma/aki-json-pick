@@ -1,18 +1,19 @@
 # aki-json-pick
 
-*aki-json-pick* is the json pick out command.
+The json pick out command.
 
 ## Features
 
--
+- the json pick out command.
+- minimum support rustc 1.47.0 (18bf6b4f0 2020-10-07)
 
-* command help
+## Command help
 
-```text
+```
 aki-json-pick --help
 ```
 
-```text
+```
 Usage:
   aki-json-pick [options]
 
@@ -36,24 +37,6 @@ Examples:
   pick out some.property value:
     echo -e '{ "some": { "property": "yay!" } }' | aki-json-pick -s '"some"."property"'
 ```
-
-* minimum support rustc 1.38.0
-
-## Quick install
-
-1. you can install this into cargo bin path:
-
-```text
-cargo install aki-json-pick
-```
-
-2. you can build debian package:
-
-```text
-cargo deb
-```
-
-and install **.deb** into your local repository of debian package.
 
 ## Examples
 
@@ -123,6 +106,17 @@ See [`fn execute()`] for this library examples.
 
 [`fn execute()`]: crate::execute
 
-## Changelogs
+# Changelogs
 
 [This crate's changelog here.](https://github.com/aki-akaguma/aki-json-pick/blob/main/CHANGELOG.md)
+
+# License
+
+This project is licensed under either of
+
+ * Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
+   https://www.apache.org/licenses/LICENSE-2.0)
+ * MIT license ([LICENSE-MIT](LICENSE-MIT) or
+   https://opensource.org/licenses/MIT)
+
+at your option.
