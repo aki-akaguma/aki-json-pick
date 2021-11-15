@@ -2,6 +2,12 @@ aki-json-pick TBD
 ===
 Unreleased changes. Release notes have not yet been written.
 
+0.1.5 (2021-11-15)
+=====
+
+* update depends: jql(3.0.4)
+* minimum support rustc 1.54.0 (a178d0322 2021-07-26)
+
 0.1.4 (2021-11-15)
 =====
 
