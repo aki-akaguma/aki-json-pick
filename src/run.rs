@@ -33,7 +33,7 @@ fn run_0(sioe: &RunnelIoe, conf: &CmdOptConf) -> anyhow::Result<()> {
     } else {
         ColorMode::Off
     };
-    let selectors = Some(conf.opt_select.as_str());
+    let selectors = conf.opt_select.as_str();
     for value in Deserializer::from_str(&json_content).into_iter::<Value>() {
         match value {
             Ok(valid_json) => match walker(&valid_json, selectors) {
