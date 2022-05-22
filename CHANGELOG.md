@@ -2,6 +2,11 @@ aki-json-pick TBD
 ===
 Unreleased changes. Release notes have not yet been written.
 
+0.1.7 (2022-05-22)
+=====
+
+* update depends: jql(4.0.3)
+
 0.1.6 (2022-05-22)
 =====
 
