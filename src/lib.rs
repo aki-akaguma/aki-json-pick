@@ -4,7 +4,7 @@ The json pick out command.
 # Features
 
 - the json pick out command.
-- minimum support rustc 1.54.0 (a178d0322 2021-07-26)
+- minimum support rustc 1.56.1 (59eed8a2a 2021-11-01)
 
 # Command help
 
