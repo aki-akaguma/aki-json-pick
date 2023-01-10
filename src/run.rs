@@ -24,7 +24,7 @@ fn run_0(sioe: &RunnelIoe, conf: &CmdOptConf) -> anyhow::Result<()> {
         let line_s = line?;
         let line_ss = line_s.as_str();
         //let line_len: usize = line_ss.len();
-        writeln!(json_content, "{}", line_ss)?;
+        writeln!(json_content, "{line_ss}")?;
     }
     //
     // output
