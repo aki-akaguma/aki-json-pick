@@ -135,7 +135,7 @@ at your option.
 [crate-link]: https://crates.io/crates/aki-json-pick
 [docs-image]: https://docs.rs/aki-json-pick/badge.svg
 [docs-link]: https://docs.rs/aki-json-pick/
-[rustc-image]: https://img.shields.io/badge/rustc-1.56+-blue.svg
+[rustc-image]: https://img.shields.io/badge/rustc-1.58+-blue.svg
 [license-image]: https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg
 [test-ubuntu-image]: https://github.com/aki-akaguma/aki-json-pick/actions/workflows/test-ubuntu.yml/badge.svg
 [test-ubuntu-link]: https://github.com/aki-akaguma/aki-json-pick/actions/workflows/test-ubuntu.yml
