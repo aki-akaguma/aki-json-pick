@@ -65,7 +65,9 @@ macro_rules! do_execute {
     ($args:expr, $sin:expr) => {{
         let sioe = RunnelIoe::new(
             Box::new(StringIn::with_str($sin)),
+            #[allow(clippy::box_default)]
             Box::new(StringOut::default()),
+            #[allow(clippy::box_default)]
             Box::new(StringErr::default()),
         );
         let program = env!("CARGO_PKG_NAME");
@@ -103,28 +105,28 @@ mod test_s0 {
         let (r, sioe) = do_execute!(&["-H"]);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), help_msg!());
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     #[test]
     fn test_help_long() {
         let (r, sioe) = do_execute!(&["--help"]);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), help_msg!());
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     #[test]
     fn test_version() {
         let (r, sioe) = do_execute!(&["-V"]);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), version_msg!());
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     #[test]
     fn test_version_long() {
         let (r, sioe) = do_execute!(&["--version"]);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), version_msg!());
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     #[test]
     fn test_non_option() {
@@ -140,7 +142,7 @@ mod test_s0 {
             )
         );
         assert_eq!(buff!(sioe, sout), "");
-        assert_eq!(r.is_ok(), false);
+        assert!(r.is_err());
     }
 }
 
@@ -171,7 +173,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "\"This is a valid JSON text with one value\"\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -180,7 +182,7 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", "\"some\".\"property\""], super::IN_DAT_02);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "\"yay!\"\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -189,17 +191,17 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", "\"primes\".[0]"], super::IN_DAT_03);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "7\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"primes\"[0]"], super::IN_DAT_03);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "7\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"primes\"[2,0]"], super::IN_DAT_03);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "[13,7]\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -211,7 +213,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "[{\"second\":\"Kitkat\"},{\"third\":\"Misty\"}]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"cats\".[2:1]"], super::IN_DAT_04);
         assert_eq!(buff!(sioe, serr), "");
@@ -219,7 +221,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "[{\"third\":\"Misty\"},{\"second\":\"Kitkat\"}]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"cats\".[2:1].[1:0]"], super::IN_DAT_04);
         assert_eq!(buff!(sioe, serr), "");
@@ -227,12 +229,12 @@ mod test_s1 {
             buff!(sioe, sout),
             "[{\"second\":\"Kitkat\"},{\"third\":\"Misty\"}]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"cats\".[2:1].[0].\"third\""], super::IN_DAT_04);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "\"Misty\"\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"cats\".[1:]"], super::IN_DAT_04);
         assert_eq!(buff!(sioe, serr), "");
@@ -240,7 +242,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "[{\"second\":\"Kitkat\"},{\"third\":\"Misty\"}]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"cats\".[:1]"], super::IN_DAT_04);
         assert_eq!(buff!(sioe, serr), "");
@@ -248,7 +250,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "[{\"first\":\"Pixie\"},{\"second\":\"Kitkat\"}]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -257,12 +259,12 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", "\"primes\".[]"], super::IN_DAT_05);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "[7,11,13]\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"primes\".[0:2]"], super::IN_DAT_05);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "[7,11,13]\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -271,7 +273,7 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", "\"object\".{\"a\",\"c\"}"], super::IN_DAT_06);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "{\"a\":1,\"c\":3}\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -280,7 +282,7 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", "\"one\".[2:0],\"two\",\"three\""], super::IN_DAT_07);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "[[3,2,1],2,3]\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -289,7 +291,7 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", "\"laptops\"|\"laptop\""], super::IN_DAT_08);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "[{\"brand\":\"Apple\",\"options\":[\"a\",\"b\",\"c\"]},{\"brand\":\"Asus\",\"options\":[\"d\",\"e\",\"f\"]}]\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(
             &["-s", "\"laptops\"|\"laptop\".\"brand\""],
@@ -297,7 +299,7 @@ mod test_s1 {
         );
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "[\"Apple\",\"Asus\"]\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(
             &[
@@ -311,7 +313,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "[[\"Asus\",\"Apple\"],[\"Apple\",\"Asus\"]]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(
             &[
@@ -325,7 +327,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "[[\"Asus\",\"Apple\"],[\"Apple\",\"Asus\"]]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -337,7 +339,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "[\"c\",\"a\",\"c\",\"g\",\"t\",\"a\",\"t\"]\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -346,7 +348,7 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", ".!"], super::IN_DAT_10);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "{\"foo\":{}}\n",);
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"foo\"!"], super::IN_DAT_10);
         assert_eq!(buff!(sioe, serr), "");
@@ -354,7 +356,7 @@ mod test_s1 {
             buff!(sioe, sout),
             "{\"a\":null,\"b\":\"bar\",\"c\":1337,\"d\":{}}\n",
         );
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
     //
     #[test]
@@ -363,16 +365,16 @@ mod test_s1 {
         let (r, sioe) = do_execute!(&["-s", "\".valid\""], super::IN_DAT_11);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "1337\n");
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"\""], super::IN_DAT_11);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "\"yeah!\"\n");
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
         //
         let (r, sioe) = do_execute!(&["-s", "\"\\\"\""], super::IN_DAT_11);
         assert_eq!(buff!(sioe, serr), "");
         assert_eq!(buff!(sioe, sout), "\"yup, valid too!\"\n");
-        assert_eq!(r.is_ok(), true);
+        assert!(r.is_ok());
     }
 }
