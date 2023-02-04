@@ -6,9 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased] *
+### Changed
+* update depends: flood-tide(0.2.9)
+* update depends: memx-cdy(0.1.11), runnel(0.3.16)
+* update depends: exec-target(v0.2.8), flood-tide-gen(0.1.16)
+* update depends: jql(5.1.6)
+
 ### Fixed
 * license files
 * clippy: `redundant_static_lifetimes`, `needless_borrow`, `bool_assert_comparison`
+* bug: `jql` was default-features
 
 
 ## [0.1.9] (2023-01-11)
