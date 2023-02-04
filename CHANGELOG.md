@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * license files
 * clippy: `redundant_static_lifetimes`, `needless_borrow`, `bool_assert_comparison`
 * bug: `jql` was default-features
+* rust-version: "1.56.0" to "1.58.0"
 
 
 ## [0.1.9] (2023-01-11)
