@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * test status badges into `README.tpl`
 
 ### Changed
+* refactored `Makefile`
 * update depends: flood-tide(0.2.9)
 * update depends: memx-cdy(0.1.11), runnel(0.3.16)
 * update depends: exec-target(v0.2.8), flood-tide-gen(0.1.16)
