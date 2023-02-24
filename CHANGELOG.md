@@ -18,7 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * update depends: exec-target(v0.2.8), flood-tide-gen(0.1.16)
 * update depends: jql(5.1.6)
 
+### Removed
+* `COPYING`
+
 ### Fixed
+* `LICENSE-APACHE`, `LICENSE-MIT`
 * license files
 * clippy: `redundant_static_lifetimes`, `needless_borrow`, `bool_assert_comparison`
 * clippy: `uninlined_format_args`
