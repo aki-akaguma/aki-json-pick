@@ -18,10 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * rename: `config` to `config.toml`
 * remove: `cfg(has_not_matches)`
 * refactored `Makefile`
-* update depends: flood-tide(0.2.9)
-* update depends: memx-cdy(0.1.11), runnel(0.3.16)
-* update depends: exec-target(v0.2.8), flood-tide-gen(0.1.16)
-* update depends: jql(5.1.6)
+* update depends: flood-tide(0.2.11), flood-tide-gen(0.1.22)
+* update depends: memx-cdy(0.1.13), runnel(0.3.19)
+* update depends: exec-target(v0.2.8), indoc(2.0.0)
+* update depends: jql(5.2.0), colored_json(3.2.0)
 
 ### Removed
 * `COPYING`
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * clippy: `redundant_static_lifetimes`, `needless_borrow`, `bool_assert_comparison`
 * clippy: `uninlined_format_args`, `unused_imports`
 * bug: `jql` was default-features
-* rust-version: "1.56.0" to "1.58.0"
+* rust-version: "1.56.0" to "1.63.0"
 
 
 ## [0.1.9] (2023-01-11)
