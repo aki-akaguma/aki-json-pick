@@ -5,7 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] *
+## [Unreleased]
+
+
+## [0.1.10] (2024-06-20)
 ### Added
 * `.github/workflows/test-ubuntu.yml`
 * `.github/workflows/test-macos.yml`
@@ -33,7 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * clippy: `uninlined_format_args`, `unused_imports`, `derivable_impls`
 * bug: `jql` was default-features
 * rust-version: "1.56.0" to "1.63.0"
-
 
 ## [0.1.9] (2023-01-11)
 ### Added
@@ -117,7 +119,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] (2021-04-28)
 * first commit
 
-[Unreleased]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.1.9..HEAD
+[Unreleased]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.1.10..HEAD
+[0.1.10]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.1.9..v0.1.10
 [0.1.9]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.1.8..v0.1.9
 [0.1.8]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.1.7..v0.1.8
 [0.1.7]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.1.6..v0.1.7
