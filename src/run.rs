@@ -6,7 +6,7 @@ use jql::walker;
 use runnel::RunnelIoe;
 use serde_json::{Deserializer, Value};
 use std::fmt::Write as FmtWrite;
-use std::io::{BufRead, Write};
+use std::io::Write;
 
 pub fn run(sioe: &RunnelIoe, conf: &CmdOptConf) -> anyhow::Result<()> {
     let r = run_0(sioe, conf);
@@ -20,7 +20,7 @@ fn run_0(sioe: &RunnelIoe, conf: &CmdOptConf) -> anyhow::Result<()> {
     let mut json_content = String::new();
     //
     // input
-    for line in sioe.pin().lock().lines() {
+    for line in sioe.pg_in().lines() {
         let line_s = line?;
         let line_ss = line_s.as_str();
         //let line_len: usize = line_ss.len();
@@ -59,7 +59,7 @@ fn write_selection(
     selection: Value,
     color_mode: ColorMode,
 ) -> anyhow::Result<()> {
-    let mut o = sioe.pout().lock();
+    let mut o = sioe.pg_out().lock();
     o.write_fmt(format_args!(
         "{}\n",
         (if conf.flg_raw_output && selection.is_string() {
