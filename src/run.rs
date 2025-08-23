@@ -6,7 +6,6 @@ use jql::walker;
 use runnel::RunnelIoe;
 use serde_json::{Deserializer, Value};
 use std::fmt::Write as FmtWrite;
-use std::io::Write;
 
 pub fn run(sioe: &RunnelIoe, conf: &CmdOptConf) -> anyhow::Result<()> {
     let r = run_0(sioe, conf);
@@ -59,10 +58,8 @@ fn write_selection(
     selection: Value,
     color_mode: ColorMode,
 ) -> anyhow::Result<()> {
-    let mut o = sioe.pg_out().lock();
-    o.write_fmt(format_args!(
-        "{}\n",
-        (if conf.flg_raw_output && selection.is_string() {
+    sioe.pg_out()
+        .write_line(if conf.flg_raw_output && selection.is_string() {
             String::from(selection.as_str().unwrap())
         } else if conf.flg_pretty {
             ColoredFormatter::new(PrettyFormatter::new())
@@ -72,9 +69,8 @@ fn write_selection(
             ColoredFormatter::new(CompactFormatter {})
                 .to_colored_json(&selection, color_mode)
                 .unwrap()
-        })
-    ))?;
-    o.flush()?;
+        })?;
+    sioe.pg_out().flush_line()?;
     //
     Ok(())
 }

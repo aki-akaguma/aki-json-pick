@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * updated: rust-version-info-file(0.2)
 * updated: jql(5.2.0)
 * rust-version: "1.80.0"
+* refactored: `run.rs`
 
 ### Fixed
 * minimum support version in doc
