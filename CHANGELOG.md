@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * updated: runnel(0.4.0)
 * updated: rust-version-info-file(0.2)
+* rust-version: "1.80.0"
+
+### Fixed
+* minimum support version in doc
 
 ## [0.1.10] (2024-06-20)
 ### Added
