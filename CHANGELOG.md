@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 * minimum support version in doc
 
+### Removed
+* `base_dir=` of `-X` options
+
 ## [0.1.10] (2024-06-20)
 ### Added
 * `.github/workflows/test-ubuntu.yml`

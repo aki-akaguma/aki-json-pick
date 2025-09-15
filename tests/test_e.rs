@@ -1,58 +1,12 @@
 const TARGET_EXE_PATH: &str = env!(concat!("CARGO_BIN_EXE_", env!("CARGO_PKG_NAME")));
 
-macro_rules! help_msg {
-    () => {
-        concat!(
-            version_msg!(),
-            "\n",
-            indoc::indoc!(r#"
-            Usage:
-              aki-json-pick [options]
+#[macro_use]
+mod helper;
 
-            The json pick out command.
+#[macro_use]
+mod helper_e;
 
-            Options:
-                  --color <when>        json colored output.
-              -s, --select <selector>   pick out json value by <selector>.
-              -p, --pretty              pretty output.
-              -r, --raw-output          raw string output without JSON double-quote.
-
-              -H, --help        display this help and exit
-              -V, --version     display version information and exit
-              -X <x-options>    x options. try -X help
-
-            Option Parameters:
-              <when>        'always', 'never', or 'auto'
-              <selector>    json selector
-
-            Examples:
-              pick out some.property value:
-                echo -e '{ "some": { "property": "yay!" } }' | aki-json-pick -s '"some"."property"'
-            "#),
-            "\n",
-        )
-    };
-}
-
-macro_rules! try_help_msg {
-    () => {
-        "Try --help for help.\n"
-    };
-}
-
-macro_rules! program_name {
-    () => {
-        "aki-json-pick"
-    };
-}
-
-macro_rules! version_msg {
-    () => {
-        concat!(program_name!(), " ", env!("CARGO_PKG_VERSION"), "\n")
-    };
-}
-
-mod test_0 {
+mod test_0_e {
     use exec_target::exec_target;
     const TARGET_EXE_PATH: &str = super::TARGET_EXE_PATH;
     //
@@ -100,7 +54,72 @@ mod test_0 {
         assert_eq!(oup.stdout, "");
         assert!(!oup.status.success());
     }
-} // mod test_0
+}
+
+mod test_0_x_options_e {
+    use exec_target::exec_target;
+    const TARGET_EXE_PATH: &str = super::TARGET_EXE_PATH;
+    //
+    #[test]
+    fn test_x_option() {
+        let oup = exec_target(TARGET_EXE_PATH, ["-X"]);
+        assert_eq!(
+            oup.stderr,
+            concat!(
+                program_name!(),
+                ": ",
+                "Missing option argument: X\n",
+                "Missing option: s\n",
+                try_help_msg!()
+            )
+        );
+        assert_eq!(oup.stdout, "");
+        assert!(!oup.status.success());
+    }
+    //
+    #[test]
+    fn test_x_option_help() {
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "help"]);
+        assert_eq!(oup.stderr, "");
+        assert_eq!(oup.stdout, x_help_msg!());
+        assert!(oup.status.success());
+    }
+    //
+    #[test]
+    fn test_x_option_rust_version_info() {
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "rust-version-info"]);
+        assert_eq!(oup.stderr, "");
+        assert!(oup.stdout.contains("rustc"));
+        assert!(oup.status.success());
+    }
+    //
+    #[test]
+    fn test_multiple_x_options() {
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "help", "-X", "rust-version-info"]);
+        assert_eq!(oup.stderr, "");
+        // The first one should be executed and the program should exit.
+        assert!(oup.stdout.contains("Options:"));
+        assert!(!oup.stdout.contains("rustc"));
+        assert!(oup.status.success());
+    }
+    //
+    #[test]
+    fn test_x_option_invalid() {
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "red"]);
+        assert_eq!(
+            oup.stderr,
+            concat!(
+                program_name!(),
+                ": ",
+                "Invalid option argument: X: can not parse 'red'\n",
+                "Missing option: s\n",
+                try_help_msg!()
+            )
+        );
+        assert_eq!(oup.stdout, "");
+        assert!(!oup.status.success());
+    }
+}
 
 const IN_DAT_01: &str = include_str!("../fixtures/01.json");
 const IN_DAT_02: &str = include_str!("../fixtures/02.json");
@@ -114,7 +133,7 @@ const IN_DAT_09: &str = include_str!("../fixtures/09.json");
 const IN_DAT_10: &str = include_str!("../fixtures/10.json");
 const IN_DAT_11: &str = include_str!("../fixtures/11.json");
 
-mod test_1 {
+mod test_1_e {
     use exec_target::exec_target_with_in;
     const TARGET_EXE_PATH: &str = super::TARGET_EXE_PATH;
     //
@@ -384,11 +403,7 @@ mod test_1 {
         assert_eq!(oup.stdout, "1337\n");
         assert!(oup.status.success());
         //
-        let oup = exec_target_with_in(
-            TARGET_EXE_PATH,
-            ["-s", "\"\""],
-            super::IN_DAT_11.as_bytes(),
-        );
+        let oup = exec_target_with_in(TARGET_EXE_PATH, ["-s", "\"\""], super::IN_DAT_11.as_bytes());
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "\"yeah!\"\n");
         assert!(oup.status.success());
