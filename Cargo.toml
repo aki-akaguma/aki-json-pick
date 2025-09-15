@@ -1,6 +1,6 @@
 [package]
 name = "aki-json-pick"
-version = "0.1.10"
+version = "0.2.0"
 authors = ["aki <aki.akaguma@hotmail.com>"]
 description = """
 The json pick out command.
