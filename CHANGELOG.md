@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+* update crate: flood-tide(0.2.14), flood-tide-gen(0.2.2)
 * to 2024 edition
 * minimum support rustc 1.85.0
 * update crate: runnel(0.4.2)
