@@ -40,11 +40,11 @@ fn run_0(sioe: &RunnelIoe, conf: &CmdOptConf) -> anyhow::Result<()> {
                     write_selection(sioe, conf, selection, color_mode)?;
                 }
                 Err(err) => {
-                    return Err(anyhow!("Error select JSON: {}", err));
+                    return Err(anyhow!("Error select JSON: {err}"));
                 }
             },
             Err(err) => {
-                return Err(anyhow!("Invalid JSON: {}", err));
+                return Err(anyhow!("Invalid JSON: {err}"));
             }
         }
     }
@@ -63,11 +63,11 @@ fn write_selection(
     } else if conf.flg_pretty {
         ColoredFormatter::new(PrettyFormatter::new())
             .to_colored_json(&selection, color_mode)
-            .map_err(|e| anyhow!("Failed to format JSON (pretty): {}", e))?
+            .map_err(|e| anyhow!("Failed to format JSON (pretty): {e}"))?
     } else {
         ColoredFormatter::new(CompactFormatter {})
             .to_colored_json(&selection, color_mode)
-            .map_err(|e| anyhow!("Failed to format JSON (compact): {}", e))?
+            .map_err(|e| anyhow!("Failed to format JSON (compact): {e}"))?
     };
 
     sioe.pg_out().write_line(out_str)?;

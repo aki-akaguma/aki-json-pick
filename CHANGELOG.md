@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * update crate: runnel(0.4.2)
 * refactored error handling: replaced `unwrap()` with robust error handling in `run.rs`, `parse.rs`, and `build.rs`
 
+### Fixed
+* `clippy::uninlined-format-args`
+
 ### Removed
 * `memx-cdy`
 
