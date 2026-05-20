@@ -6,7 +6,7 @@ fn main() {
         #[cfg(feature = "debian_build")]
         let dir = "target".to_string();
         #[cfg(not(feature = "debian_build"))]
-        let dir = std::env::var("OUT_DIR").unwrap();
+        let dir = std::env::var("OUT_DIR").expect("Environment variable OUT_DIR must be set. Check your build environment.");
         //
         format!("{dir}/rust-version-info.txt")
     };

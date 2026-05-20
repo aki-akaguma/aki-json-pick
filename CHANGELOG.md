@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * to 2024 edition
 * minimum support rustc 1.85.0
 * update crate: runnel(0.4.2)
+* refactored error handling: replaced `unwrap()` with robust error handling in `run.rs`, `parse.rs`, and `build.rs`
 
 ### Removed
 * `memx-cdy`

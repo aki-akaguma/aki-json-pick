@@ -58,18 +58,19 @@ fn write_selection(
     selection: Value,
     color_mode: ColorMode,
 ) -> anyhow::Result<()> {
-    sioe.pg_out()
-        .write_line(if conf.flg_raw_output && selection.is_string() {
-            String::from(selection.as_str().unwrap())
-        } else if conf.flg_pretty {
-            ColoredFormatter::new(PrettyFormatter::new())
-                .to_colored_json(&selection, color_mode)
-                .unwrap()
-        } else {
-            ColoredFormatter::new(CompactFormatter {})
-                .to_colored_json(&selection, color_mode)
-                .unwrap()
-        })?;
+    let out_str = if conf.flg_raw_output && selection.is_string() {
+        selection.as_str().unwrap_or("").to_string()
+    } else if conf.flg_pretty {
+        ColoredFormatter::new(PrettyFormatter::new())
+            .to_colored_json(&selection, color_mode)
+            .map_err(|e| anyhow!("Failed to format JSON (pretty): {}", e))?
+    } else {
+        ColoredFormatter::new(CompactFormatter {})
+            .to_colored_json(&selection, color_mode)
+            .map_err(|e| anyhow!("Failed to format JSON (compact): {}", e))?
+    };
+
+    sioe.pg_out().write_line(out_str)?;
     sioe.pg_out().flush_line()?;
     //
     Ok(())

@@ -63,8 +63,11 @@ fn opt_uc_x_package_version_info(_program: &str) -> String {
         let file = std::fs::File::open(&fnm);
         match file {
             Ok(mut f) => {
-                f.read_to_string(&mut string).unwrap();
-                string
+                if let Err(err) = f.read_to_string(&mut string) {
+                    format!("ERROR: {}: '{}'", err, fnm)
+                } else {
+                    string
+                }
             },
             Err(err) => {
                 format!("ERROR: {}: '{}'", err, fnm)
