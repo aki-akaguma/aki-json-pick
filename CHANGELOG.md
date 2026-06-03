@@ -1,5 +1,4 @@
 # Changelog: aki-json-pick
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
@@ -17,15 +16,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactor error handling in `run.rs`, `parse.rs`, and `build.rs` to replace `unwrap()` with robust error management
 
 ### Fixed
-- Clippy lint: `uninlined-format-args`
+- Address clippy lint: `uninlined-format-args`
 
 ### Removed
-- `memx-cdy` dependency
+- Drop `memx-cdy` dependency
 
 ## [0.2.0] - 2025-09-15
 
 ### Added
-- `specs` directory for project specifications
+- Introduce `specs` directory for project specifications
 
 ### Changed
 - Enable `IntoIterator` compatibility for arguments in `execute()`
@@ -36,46 +35,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactor `run.rs`
 
 ### Fixed
-- Minimum supported version in documentation
+- Correct minimum supported version in documentation
 
 ### Removed
-- `base_dir=` parameter from `-X` options
+- Drop `base_dir=` parameter from `-X` options
 
 ## [0.1.10] - 2024-06-20
 
 ### Added
-- GitHub Actions workflows for Ubuntu, macOS, and Windows
-- Test status badges in `README.tpl`
-- Miri support for tests
-- Tarpaulin support in `Makefile`
+- Incorporate GitHub Actions workflows for Ubuntu, macOS, and Windows
+- Include test status badges in `README.tpl`
+- Enable Miri support for tests
+- Support Tarpaulin in `Makefile`
 
 ### Changed
 - Rename `config` to `config.toml`
-- Remove `cfg(has_not_matches)`
+- Eliminate `cfg(has_not_matches)`
 - Refactor `Makefile`
 - Update dependencies: `flood-tide` (0.2.11), `flood-tide-gen` (0.1.22), `memx-cdy` (0.1.13), `runnel` (0.3.19), `exec-target` (v0.2.8), `indoc` (2.0.0), `jql` (5.2.0), and `colored_json` (3.2.0)
 
 ### Fixed
-- License files: `LICENSE-APACHE` and `LICENSE-MIT`
-- Clippy lints: `redundant_static_lifetimes`, `needless_borrow`, `bool_assert_comparison`, `uninlined_format_args`, `unused_imports`, and `derivable_impls`
-- Bug where `jql` used default features unintentionally
+- Correct license files: `LICENSE-APACHE` and `LICENSE-MIT`
+- Address clippy lints: `redundant_static_lifetimes`, `needless_borrow`, `bool_assert_comparison`, `uninlined_format_args`, `unused_imports`, and `derivable_impls`
+- Resolve bug where `jql` used default features unintentionally
 - Bump Rust version requirement from 1.56.0 to 1.63.0
 
 ### Removed
-- `COPYING` file
+- Delete `COPYING` file
 
 ## [0.1.9] - 2023-01-11
 
 ### Added
-- Badges in `README.tpl`
-- Rust version requirement (1.56.0) in `Cargo.toml`
+- Include badges in `README.tpl`
+- Specify Rust version requirement (1.56.0) in `Cargo.toml`
 
 ### Changed
 - Reformat `CHANGELOG.md`
 - Update dependencies: `anyhow` (1.0.68), `flood-tide` (0.2.8), `flood-tide-gen` (0.1.19), `memx-cdy` (0.1.10), `runnel` (0.3.15), `jql` (5.1.4), `colored_json` (3.0.1), and `serde_json` (1.0.91)
 
 ### Fixed
-- Clippy lints: `Eq` implementation for `PartialEq` derivations and `uninlined_format_args`
+- Address clippy lints: `Eq` implementation for `PartialEq` derivations and `uninlined_format_args`
 
 ## [0.1.8] - 2022-06-18
 
@@ -102,7 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.4] - 2021-11-15
 
 ### Added
-- Documentation improvements
+- Improve documentation
 
 ### Changed
 - Raise minimum supported Rust version to 1.47.0
@@ -118,29 +117,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.2] - 2021-06-24
 
 ### Added
-- `memx_cdy::memx_init()` for optimized memory operations
+- Integrate `memx_cdy::memx_init()` for optimized memory operations
 
 ### Changed
 - Use `env!("CARGO_BIN_EXE_aki-json-pick")` for `TARGET_EXE_PATH`
 
 ### Fixed
-- Build issue with `#[cfg(feature = "debian_build")]`
+- Address build issue with `#[cfg(feature = "debian_build")]`
 
 ## [0.1.1] - 2021-06-03
 
 ### Added
-- Support for `debian_build` feature
+- Enable support for `debian_build` feature
 
 ### Changed
 - Update dependencies: `flood-tide` (0.2.2) and `regex` (1.5.4)
 
 ### Fixed
-- Bug in `-X rust-version-info` command option
+- Resolve bug in `-X rust-version-info` command option
 
 ## [0.1.0] - 2021-04-28
 
 ### Added
-- Initial release
+- Perform initial release
 
 [Unreleased]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.2.1..HEAD
 [0.2.1]: https://github.com/aki-akaguma/aki-json-pick/compare/v0.2.0..v0.2.1
