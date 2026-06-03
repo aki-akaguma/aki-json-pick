@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Raise minimum supported Rust version (MSRV) to 1.85.0
 - Update `runnel` crate to 0.4.2
 - Refactor error handling in `run.rs`, `parse.rs`, and `build.rs` to replace `unwrap()` with robust error management
+- Update crates: exec-target (0.3)
 
 ### Fixed
 - Address clippy lint: `uninlined-format-args`

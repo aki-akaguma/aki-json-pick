@@ -12,35 +12,35 @@ mod test_0_e {
     //
     #[test]
     fn test_help() {
-        let oup = exec_target(TARGET_EXE_PATH, ["-H"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["-H"]).unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, help_msg!());
         assert!(oup.status.success());
     }
     #[test]
     fn test_help_long() {
-        let oup = exec_target(TARGET_EXE_PATH, ["--help"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["--help"]).unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, help_msg!());
         assert!(oup.status.success());
     }
     #[test]
     fn test_version() {
-        let oup = exec_target(TARGET_EXE_PATH, ["-V"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["-V"]).unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, version_msg!());
         assert!(oup.status.success());
     }
     #[test]
     fn test_version_long() {
-        let oup = exec_target(TARGET_EXE_PATH, ["--version"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["--version"]).unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, version_msg!());
         assert!(oup.status.success());
     }
     #[test]
     fn test_non_option() {
-        let oup = exec_target(TARGET_EXE_PATH, [""]);
+        let oup = exec_target(TARGET_EXE_PATH, [""]).unwrap();
         assert_eq!(
             oup.stderr,
             concat!(
@@ -62,7 +62,7 @@ mod test_0_x_options_e {
     //
     #[test]
     fn test_x_option() {
-        let oup = exec_target(TARGET_EXE_PATH, ["-X"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["-X"]).unwrap();
         assert_eq!(
             oup.stderr,
             concat!(
@@ -79,7 +79,7 @@ mod test_0_x_options_e {
     //
     #[test]
     fn test_x_option_help() {
-        let oup = exec_target(TARGET_EXE_PATH, ["-X", "help"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "help"]).unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, x_help_msg!());
         assert!(oup.status.success());
@@ -87,7 +87,7 @@ mod test_0_x_options_e {
     //
     #[test]
     fn test_x_option_rust_version_info() {
-        let oup = exec_target(TARGET_EXE_PATH, ["-X", "rust-version-info"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "rust-version-info"]).unwrap();
         assert_eq!(oup.stderr, "");
         assert!(oup.stdout.contains("rustc"));
         assert!(oup.status.success());
@@ -95,7 +95,7 @@ mod test_0_x_options_e {
     //
     #[test]
     fn test_multiple_x_options() {
-        let oup = exec_target(TARGET_EXE_PATH, ["-X", "help", "-X", "rust-version-info"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "help", "-X", "rust-version-info"]).unwrap();
         assert_eq!(oup.stderr, "");
         // The first one should be executed and the program should exit.
         assert!(oup.stdout.contains("Options:"));
@@ -105,7 +105,7 @@ mod test_0_x_options_e {
     //
     #[test]
     fn test_x_option_invalid() {
-        let oup = exec_target(TARGET_EXE_PATH, ["-X", "red"]);
+        let oup = exec_target(TARGET_EXE_PATH, ["-X", "red"]).unwrap();
         assert_eq!(
             oup.stderr,
             concat!(
@@ -140,7 +140,8 @@ mod test_1_e {
     #[test]
     fn test_t01() {
         // Root selection
-        let oup = exec_target_with_in(TARGET_EXE_PATH, ["-s", "."], super::IN_DAT_01.as_bytes());
+        let oup =
+            exec_target_with_in(TARGET_EXE_PATH, ["-s", "."], super::IN_DAT_01.as_bytes()).unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "\"This is a valid JSON text with one value\"\n",);
         assert!(oup.status.success());
@@ -153,7 +154,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"some\".\"property\""],
             super::IN_DAT_02.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "\"yay!\"\n",);
         assert!(oup.status.success());
@@ -166,7 +168,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"primes\".[0]"],
             super::IN_DAT_03.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "7\n",);
         assert!(oup.status.success());
@@ -175,7 +178,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"primes\"[0]"],
             super::IN_DAT_03.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "7\n",);
         assert!(oup.status.success());
@@ -184,7 +188,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"primes\".[2,0]"],
             super::IN_DAT_03.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[13,7]\n",);
         assert!(oup.status.success());
@@ -197,7 +202,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"cats\".[1:2]"],
             super::IN_DAT_04.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(
             oup.stdout,
@@ -209,7 +215,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"cats\".[2:1]"],
             super::IN_DAT_04.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(
             oup.stdout,
@@ -221,7 +228,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"cats\".[2:1].[1:0]"],
             super::IN_DAT_04.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(
             oup.stdout,
@@ -233,7 +241,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"cats\".[2:1].[0].\"third\""],
             super::IN_DAT_04.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "\"Misty\"\n",);
         assert!(oup.status.success());
@@ -242,7 +251,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"cats\".[1:]"],
             super::IN_DAT_04.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(
             oup.stdout,
@@ -254,7 +264,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"cats\".[:1]"],
             super::IN_DAT_04.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(
             oup.stdout,
@@ -270,7 +281,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"primes\".[]"],
             super::IN_DAT_05.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[7,11,13]\n");
         assert!(oup.status.success());
@@ -279,7 +291,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"primes\".[0:2]"],
             super::IN_DAT_05.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[7,11,13]\n");
         assert!(oup.status.success());
@@ -292,7 +305,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"object\".{\"a\",\"c\"}"],
             super::IN_DAT_06.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "{\"a\":1,\"c\":3}\n");
         assert!(oup.status.success());
@@ -305,7 +319,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"one\".[2:0],\"two\",\"three\""],
             super::IN_DAT_07.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[[3,2,1],2,3]\n");
         assert!(oup.status.success());
@@ -318,7 +333,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"laptops\"|\"laptop\""],
             super::IN_DAT_08.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[{\"brand\":\"Apple\",\"options\":[\"a\",\"b\",\"c\"]},{\"brand\":\"Asus\",\"options\":[\"d\",\"e\",\"f\"]}]\n");
         assert!(oup.status.success());
@@ -327,7 +343,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"laptops\"|\"laptop\".\"brand\""],
             super::IN_DAT_08.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[\"Apple\",\"Asus\"]\n");
         assert!(oup.status.success());
@@ -339,7 +356,8 @@ mod test_1_e {
                 "\"laptops\".[1:0]|\"laptop\".\"brand\",\"laptops\"|\"laptop\".\"brand\"",
             ],
             super::IN_DAT_08.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[[\"Asus\",\"Apple\"],[\"Apple\",\"Asus\"]]\n");
         assert!(oup.status.success());
@@ -351,7 +369,8 @@ mod test_1_e {
                 "\"laptops\".[1:0]|\"laptop\"|\"brand\",\"laptops\"|\"laptop\"|\"brand\"",
             ],
             super::IN_DAT_08.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[[\"Asus\",\"Apple\"],[\"Apple\",\"Asus\"]]\n");
         assert!(oup.status.success());
@@ -364,7 +383,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "..\"dna\""],
             super::IN_DAT_09.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "[\"c\",\"a\",\"c\",\"g\",\"t\",\"a\",\"t\"]\n");
         assert!(oup.status.success());
@@ -373,7 +393,8 @@ mod test_1_e {
     #[test]
     fn test_t10() {
         // Truncate
-        let oup = exec_target_with_in(TARGET_EXE_PATH, ["-s", ".!"], super::IN_DAT_10.as_bytes());
+        let oup = exec_target_with_in(TARGET_EXE_PATH, ["-s", ".!"], super::IN_DAT_10.as_bytes())
+            .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "{\"foo\":{}}\n");
         assert!(oup.status.success());
@@ -382,7 +403,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"foo\"!"],
             super::IN_DAT_10.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(
             oup.stdout,
@@ -398,12 +420,14 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\".valid\""],
             super::IN_DAT_11.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "1337\n");
         assert!(oup.status.success());
         //
-        let oup = exec_target_with_in(TARGET_EXE_PATH, ["-s", "\"\""], super::IN_DAT_11.as_bytes());
+        let oup = exec_target_with_in(TARGET_EXE_PATH, ["-s", "\"\""], super::IN_DAT_11.as_bytes())
+            .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "\"yeah!\"\n");
         assert!(oup.status.success());
@@ -412,7 +436,8 @@ mod test_1_e {
             TARGET_EXE_PATH,
             ["-s", "\"\\\"\""],
             super::IN_DAT_11.as_bytes(),
-        );
+        )
+        .unwrap();
         assert_eq!(oup.stderr, "");
         assert_eq!(oup.stdout, "\"yup, valid too!\"\n");
         assert!(oup.status.success());

@@ -38,7 +38,7 @@ serde_json = "1.0"
 
 [dev-dependencies]
 indoc = "2.0"
-exec-target = "0.2"
+exec-target = "0.3"
 
 [build-dependencies]
 rust-version-info-file = "0.2"
